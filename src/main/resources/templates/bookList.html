@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Main Window</title>
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Nunito+Sans" rel="stylesheet">
+    <link type="text/css" rel="stylesheet"  data-th-href="@{/css/style.css}">
+</head>
+<body>
+    <nav>
+        <a href="/" class="navbar__logo">Books</a>
+        <ul class="navbar">
+            <li class="navbar__active"><a href="/book/list">List</a></li>
+            <li><a href="/book/new">Add new book</a></li>
+        </ul>
+    </nav>
+    <div class="list">
+        <div th:if="${not #lists.isEmpty(books)}">
+            <h2 class="list__title">Book List</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>Publisher</th>
+                    <th>Published</th>
+                    <th>&nbsp;</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="book : ${books}">
+                    <td th:text="${book.title}"></td>
+                    <td th:text="${book.author}"></td>
+                    <td th:text="${book.publisher}"></td>
+                    <td th:text="${#temporals.format(book.published, 'dd-MM-yyyy')}"></td>
+                    <td><a th:href="@{/book/{id}(id=${book.id})}" class="btn-detail">Detail</a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div th:if="${#lists.isEmpty(books)}">
+            <h2>Book List</h2>
+            <p>There is not any book on the list. Please, add a new book!</p>
+        </div>
+    </div>
+</body>
+</html>

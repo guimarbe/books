@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Main Window</title>
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Nunito+Sans" rel="stylesheet">
+    <link type="text/css" rel="stylesheet"  data-th-href="@{/css/style.css}">
+</head>
+<body>
+    <nav>
+        <a href="/" class="navbar__logo">Books</a>
+        <ul class="navbar">
+            <li><a href="/book/list">List</a></li>
+            <li><a href="/book/new">Add new book</a></li>
+        </ul>
+    </nav>
+    <div class="hero-text">
+        <h1>Welcome <span th:text="${name}"></span>!</h1>
+        <p>We are really happy to have you in here! In this app you're going to know what are the best programming books around the world! You can check out the current list pressing the button under this paragraph.</p>
+        <a class="btn" th:href="@{/book/list}">Go to List</a>
+    </div>
+</body>
+</html>

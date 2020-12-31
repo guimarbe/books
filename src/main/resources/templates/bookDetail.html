@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Main Window</title>
+    <link href="https://fonts.googleapis.com/css?family=Bungee+Inline|Nunito+Sans" rel="stylesheet">
+    <link href="https://cdn.linearicons.com/free/1.0.0/icon-font.min.css" rel="stylesheet" >
+    <link type="text/css" rel="stylesheet"  data-th-href="@{/css/style.css}">
+</head>
+<body>
+    <nav>
+        <a href="/" class="navbar__logo">Books</a>
+        <ul class="navbar">
+            <li><a href="/book/list">List</a></li>
+            <li><a href="/book/new">Add new book</a></li>
+        </ul>
+    </nav>
+    <div th:each="book : ${books}">
+        <figure class="book">
+            <a href="/book/list" class="book__back"><span class="emoji--back lnr lnr-arrow-left"></span> Go Back</a>
+            <div class="book__hero">
+                <img th:src="@{/img/{image}(image=${book.image} ?: 'image-not-available.jpg')}" th:alt-title="${book.title}" class="book__img">
+            </div>
+            <div class="book__name">
+                <h2 class="book__title" th:text="${book.title}"></h2>
+                <h3 class="book__subtitle" th:text="${book.subtitle}"></h3>
+            </div>
+            <div class="book__details">
+                <div class="book__detail"><span class="emoji--detail lnr lnr-license"></span><p th:text="${book.isbn}"></p></div>
+                <div class="book__detail"><span class="emoji--detail lnr lnr-user"></span><p th:text="${book.author}"></p></div>
+                <div class="book__detail"><span class="emoji--detail lnr lnr-apartment"></span><p th:text="${book.publisher}"></p></p></div>
+                <div class="book__detail"><span class="emoji--detail lnr lnr-calendar-full"></span><p th:text="${#temporals.format(book.published, 'dd-MM-yyyy')}"></p></p></div>
+                <div class="book__detail"><span class="emoji--detail lnr lnr-tag"></span><p th:text="${book.category}"></p></p></div>
+                <div class="book__detail"><span class="emoji--detail lnr lnr-file-empty"></span><p th:text="${book.pages}"></p></p></div>
+            </div>
+            <p class="book__description" th:text="${book.description}"></p>
+            <p class="book__source">Source: <a th:href="@{{website}(website=${book.website})}" target="_blank"><span th:text="${book.website}"></span></a></p>
+            <div class="book__buttons">
+                <a class="book__buttons--modify" th:href="@{/book/edit/{id}(id=${book.id})}">Modify</a>
+                <a class="book__buttons--delete" th:href="@{/book/delete/{id}(id=${book.id})}">Delete</a>
+            </div>
+        </figure>
+    </div>
+</body>
+</html>
